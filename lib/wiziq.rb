@@ -1,4 +1,6 @@
 require 'savon'
+require 'nokogiri'
+require 'net/http'
 
 module Wiziq
   class API
@@ -20,38 +22,49 @@ module Wiziq
 
       @username = username
       @password = password
-         
+
       # @logger = Logging.logger(STDOUT)
       #      @logger.level = :warn
       #  
       @client = Savon::Client.new do
         wsdl.document = "http://authorlive.com/aGLIVE/aGLive.asmx?WSDL"
       end
+
       
     end
 
+
     def get_time_zones
+      body = { :psz_usr_nam => @username, :psz_pwd => @password }
+      
+      response = call_api(:get_time_zones, body)
+      
+      xml = response.to_hash[:get_time_zones_response][:get_time_zones_result]
+      xml_doc = Nokogiri::XML(xml)
+      time_zone_ids = xml_doc.xpath("//ALW_TblTimeZones/@ID")
+      time_zone_names = xml_doc.xpath("//ALW_TblTimeZones/@DisplayName")
+      time_zone_hash = Hash.new
+      time_zone_ids.each do |id|
+        x = time_zone_ids.index(id)
+        time_zone_hash[id.value] = time_zone_names[x].value
+      end
+            
+      time_zone_hash
+    end
+
+    #Call WiZiQ api methods
+    def call_api(method, body)
       begin
-        response = @client.request :get_time_zones do
-          soap.version = 2
-          soap.body = { :psz_usr_nam => @username, :psz_pwd => @password }
+        response = @client.request(:wiziq, method) do
+          soap.namespaces["xmlns:SOAP-ENC"] = "http://schemas.xmlsoap.org/soap/encoding/"
+          soap.namespaces["env:encodingStyle"] = "http://schemas.xmlsoap.org/soap/encoding/"
+          soap.body = body
         end
-        # @logger.debug response.to_xml
-        xml = response.xml
-        xml
       rescue Savon::Error => error
-        puts error
-        # @logger error.to_s
+        Savon.logger.error(error.to_s)
+        raise APIError.new(error)
       end
     end
-
-
-    def respond_to?(api_method) # :nodoc:
-      @client.call(api_method, {})
-      #rescue Savon::SOAP::Fault => error
-      #   error.faultCode == -32601 ? false : true 
-    end
-
   end
   
   class APIError < StandardError
