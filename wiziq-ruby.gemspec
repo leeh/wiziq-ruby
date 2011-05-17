@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "wiziq/version"
 
 Gem::Specification.new do |s|
-  s.name        = "wiziq"
+  s.name        = "wiziq-ruby"
   s.version     = Wiziq::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Lee Horrocks"]
