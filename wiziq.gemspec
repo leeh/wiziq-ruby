@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   #s.add_dependency("logging", ">= 1.5.0")  
   #s.add_dependency("savon_model", ">= 0.4.1")
   
-  s.add_development_dependency("bundler", ">= 1.0.0")
-  s.add_development_dependency("jeweler", ">= 1.6.0")
+  s.add_development_dependency("bundler", "~> 1.0.0")
+  s.add_development_dependency("jeweler", "~> 1.6.0")
   s.add_development_dependency("rspec", ">= 2.5.0")
   s.add_development_dependency("shoulda")
   s.add_development_dependency("autotest-standalone", ">= 4.4.2")
