@@ -7,12 +7,8 @@ class TestWiziq < Test::Unit::TestCase
   
   
   def setup
-    # @username = "demoaccount"
-    # @password = "wiziq123"
-    @username = "learnerhill"
-    @password = "password"
-
-    
+    @username = "demoaccount"
+    @password = "wiziq123"
     @wiziq = Wiziq::API.new(@username, @password)
   end
   # 
