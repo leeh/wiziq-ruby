@@ -184,7 +184,14 @@ module Wiziq
             soap.body = body
           end
         rescue Savon::Error => error
-          raise APIError.new(error.to_hash)
+          error_hash = error.to_hash
+          if error_hash[:fault][:faultcode] == "ERR0001"               
+            raise SchedulingPastError.new(error_hash)
+          elsif error_hash[:fault][:faultcode] == "ERR00017"
+            raise SessionLimitError.new(error_hash)
+          else
+            raise APIError.new(error_hash)
+          end
         end
       end
   end
@@ -195,6 +202,19 @@ module Wiziq
     end
   end
   
+  class SessionLimitError < APIError
+    def initialize(error)
+      super("#{error[:fault][:faultcode]}")
+    end
+  end
+  
+  class SchedulingPastError < APIError
+    def initialize(error)
+      super("#{error[:fault][:faultcode]}")
+    end
+  end
+  
+  
 end
 
 # class String
@@ -202,3 +222,11 @@ end
 #     self.to_s[0].chr.downcase + self.gsub(/(?:^|_)(.)/) { $1.upcase }[1..self.size]
 #   end
 # end
+
+
+# <?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><soap:Fault><faultcode>ERR00017</faultcode><faultstring>System.Web.Services.Protocols.SoapException: only 4 simultaneous session allowed 
+#    at aGLive.aGLiveService.ScheduleNewEvent(stNewEventDetails EventDetails)</faultstring><detail /></soap:Fault></soap:Body></soap:Envelope>
+
+
+# <?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><soap:Fault><faultcode>ERR0001</faultcode><faultstring>System.Web.Services.Protocols.SoapException: Datetime must be greater than current datetime
+#    at aGLive.aGLiveService.ScheduleNewEvent(stNewEventDetails EventDetails)</faultstring><detail /></soap:Fault></soap:Body></soap:Envelope>
