@@ -23,3 +23,22 @@ TBD
 
 Copyright (c) 2011 Lee Horrocks. See LICENSE.txt for further details.
 
+
+
+
+
+
+
+# class String
+#   def camelize_api_method_name
+#     self.to_s[0].chr.downcase + self.gsub(/(?:^|_)(.)/) { $1.upcase }[1..self.size]
+#   end
+# end
+
+
+# <?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><soap:Fault><faultcode>ERR00017</faultcode><faultstring>System.Web.Services.Protocols.SoapException: only 4 simultaneous session allowed 
+#    at aGLive.aGLiveService.ScheduleNewEvent(stNewEventDetails EventDetails)</faultstring><detail /></soap:Fault></soap:Body></soap:Envelope>
+
+
+# <?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><soap:Fault><faultcode>ERR0001</faultcode><faultstring>System.Web.Services.Protocols.SoapException: Datetime must be greater than current datetime
+#    at aGLive.aGLiveService.ScheduleNewEvent(stNewEventDetails EventDetails)</faultstring><detail /></soap:Fault></soap:Body></soap:Envelope>

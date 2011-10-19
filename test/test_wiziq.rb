@@ -16,34 +16,27 @@ class TestWiziq < Test::Unit::TestCase
   # test "get time zones" do
   # end
   
-  
-
-# Attendee_feedback_url' => '', 'presenter_feedback_url' => '', 'supporturl' => '', 'company_name' => 'your company name', 'presenter_name' =>  'presenter name', 'presenter_label' => 'testphp', , 
-# ,  'enable_private_chat' => 'yes', 'company_url' => '', , , 'DefaultTab' => 'p'
-     # 
-        # args = { 'UserCode' =>  '9953', 'IsExtendableByMins' => true, 'ExtendedMins' => 0, 'MaxUsers' => 5, 'VideoSize' => 'NotSet', 'PingTime' => 1, 'ShowTimer' => true, 'RecodingReplay' => true, 'AudioQuality' => 2, 'TimerType' => false,  'CategoryNumber' => 14, 'EndSessionRequired' => 'enFalse', 'AttendeeTimeZone' => 23, 'PresenterTimeZone' => 23, 'DisplayAttendeeLoginLogout' =>  'enDisplay', 'BrowserCloseMsg' => 'enFalse', 'AttendeeContent' => 'enFalse', 'MathToolBar' =>  'enFalse', 'ChatAlertSound' => 'true', 'ShowEraser' => 'enFalse', 'VideoSharing' => 'true', 'PrintRequired' => 'false', 'SmileysRequired' => 'true', 'ShowConnStatus' =>  'false', 'ShowDisableChatButton' => 'false', 'SecureLogin' => 'false', 'AttendeeList'=>'', 'EventName' => 'Test schedule class 1', 'DateTime' =>  '05/29/2011 01:00:00 pm', 'TimeZone' => 28, 'Duration' => 60, 'Description' => ""}
-
  
-  # def test_schedule_new_event
-  #      
-  #   defaults = { 'UserCode' =>  '9953', 'IsExtendableByMins' => true, 'ExtendedMins' => 30, 'MaxUsers' => 25, 'VideoSize' => 'NotSet', 'PingTime' => 1, 'ShowTimer' => true, 'RecodingReplay' => true, 'AudioQuality' => 2, 'TimerType' => false,  'CategoryNumber' => 14, 'EndSessionRequired' => 'enFalse', 'DisplayAttendeeLoginLogout' =>  'enDisplay', 'BrowserCloseMsg' => 'enFalse', 'AttendeeContent' => 'enFalse', 'MathToolBar' =>  'enFalse', 'ChatAlertSound' => 'true', 'ShowEraser' => 'enFalse', 'VideoSharing' => 'true', 'PrintRequired' => 'false', 'SmileysRequired' => 'true', 'ShowConnStatus' =>  'false', 'ShowDisableChatButton' => 'false', 'SecureLogin' => 'false', 'AttendeeList'=>''}
-  #    
-  #   args = {'EventName' => 'TEST SCHEDULE', 'DateTime' =>  '07/01/2011 01:00:00 pm', 'TimeZone' => 23, 'Duration' => 60, 'Description' => nil, 'PresenterName' => 'leehorrocks'}
-  #    
-  #   args = defaults.merge(args)
-  #  
-  #   attendee_list = ''
-  #   response = @wiziq.schedule_new_event(args, attendee_list)
-  # 
-  # end
+  def test_schedule_new_event
+       
+    defaults = { 'UserCode' =>  '9953', 'IsExtendableByMins' => true, 'ExtendedMins' => 30, 'MaxUsers' => 25, 'VideoSize' => 'NotSet', 'PingTime' => 1, 'ShowTimer' => true, 'AudioQuality' => 2,  'CategoryNumber' => 14, 'EndSessionRequired' => 'enFalse', 'DisplayAttendeeLoginLogout' =>  'enDisplay', 'BrowserCloseMsg' => 'enFalse', 'AttendeeContent' => 'enFalse', 'MathToolBar' =>  'enFalse', 'ChatAlertSound' => 'true', 'ShowEraser' => 'enFalse', 'VideoSharing' => 'true', 'PrintRequired' => 'false', 'SmileysRequired' => 'true', 'ShowConnStatus' =>  'false', 'ShowDisableChatButton' => 'false', 'SecureLogin' => 'false', 'AttendeeList'=>''}
+     
+    args = {'EventName' => 'CSCMP - M1 Supply Chain Management - through OIPMAC: GroupClassLIVEWebinarB', 'DateTime' =>  '11/11/2011 12:00:00 am', 'TimeZone' => 23, 'Duration' => 60, 'Description' => nil, 'PresenterName' => 'testuser'}
+     
+    args = defaults.merge(args)
+   
+    attendee_list = ''
+    response = @wiziq.schedule_new_event(args, attendee_list)
+  
+  end
 
   def test_update_event
     
     attendee_list = ["demoaccount"]
       
-    defaults = { 'UserCode' =>  '9953', 'IsExtendableByMins' => 'enTrue', 'ExtendedMins' => 30, 'MaxUsers' => 25, 'VideoSize' => 'NotSet', 'PingTime' => 1, 'ShowTimer' => true, 'RecodingReplay' => true, 'AudioQuality' => 2, 'TimerType' => false,  'CategoryNumber' => 14, 'EndSessionRequired' => 'enFalse', 'DisplayAttendeeLoginLogout' =>  'enDisplay', 'BrowserCloseMsg' => 'enFalse', 'AttendeeContent' => 'enFalse', 'MathToolBar' =>  'enFalse', 'ChatAlertSound' => 'enTrue', 'ShowEraser' => 'enFalse', 'VideoSharing' => 'true', 'PrintRequired' => 'false', 'SmileysRequired' => 'true', 'ShowConnStatus' =>  'false', 'ShowDisableChatButton' => 'false', 'SecureLogin' => 'false', 'AttendeeList'=>''}
+    defaults = { 'UserCode' =>  '9953', 'IsExtendableByMins' => 'enTrue', 'ExtendedMins' => 30, 'MaxUsers' => 25, 'VideoSize' => 'NotSet', 'PingTime' => 1, 'ShowTimer' => true, 'AudioQuality' => 2, 'CategoryNumber' => 14, 'EndSessionRequired' => 'enFalse', 'DisplayAttendeeLoginLogout' =>  'enDisplay', 'BrowserCloseMsg' => 'enFalse', 'AttendeeContent' => 'enFalse', 'MathToolBar' =>  'enFalse', 'ChatAlertSound' => 'enTrue', 'ShowEraser' => 'enFalse', 'VideoSharing' => 'true', 'PrintRequired' => 'false', 'SmileysRequired' => 'true', 'ShowConnStatus' =>  'false', 'ShowDisableChatButton' => 'false', 'SecureLogin' => 'false', 'AttendeeList'=>''}
      
-    args = {'SessionCode' =>  '1219666', 'EventName' => 'TEST SCHEDULE Upd', 'DateTime' =>  '07/01/2011 01:00:00 pm', 'TimeZone' => 23, 'Duration' => 60, 'Description' => 'Test Scehedule', 'PresenterName' => 'leehorrocks'}
+    args = {'SessionCode' =>  '1431872', 'EventName' => 'TEST SCHEDULE Upd', 'DateTime' =>  '11/11/2011 11:00:00 am', 'TimeZone' => 23, 'Duration' => 60, 'Description' => nil, 'PresenterName' => 'testuser'}
      
     args = defaults.merge(args)
     response = @wiziq.update_event(args)

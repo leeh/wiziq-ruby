@@ -151,6 +151,16 @@ module Wiziq
       time_zone_hash
     end
 
+    def download_recording
+    end
+
+    def delete_recording(session_codes)
+      body = {'DeleteRecordings' => { 'SessionCode' => session_code, 'AttendeeList' => {'string' => screenname}}}
+      
+      response = call_api(:remove_attendee, body)
+       response.to_hash[:remove_attendee_response][:remove_attendee_result]
+    end
+
     #Convert date from one timezone to another
     # args: TZ 1 ID, TZ 2 ID, date: 2010-01-26T11:00:00
     def convert_date(from, to, date)
@@ -187,8 +197,16 @@ module Wiziq
           error_hash = error.to_hash
           if error_hash[:fault][:faultcode] == "ERR0001"               
             raise SchedulingPastError.new(error_hash)
+          elsif error_hash[:fault][:faultcode] == "ERR0002"               
+            raise SchedulingPastError.new(error_hash)
+          elsif error_hash[:fault][:faultcode] == "ERR0006"
+            raise SchedulingPastError.new(error_hash)
           elsif error_hash[:fault][:faultcode] == "ERR00017"
             raise SessionLimitError.new(error_hash)
+          elsif error_hash[:fault][:faultcode] == "ERR00019"
+            #System.Web.Services.Protocols.SoapException: Cannot update events. Only scheduled events can be updated
+            #Ignore
+            #raise APIError.new(error_hash)
           else
             raise APIError.new(error_hash)
           end
