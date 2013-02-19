@@ -1,7 +1,14 @@
-=== 0.0.2 2011-05-18
+
+0.0.5 / 2013-02-19 
+==================
+* Fix error handling issue
+
+0.0.2 / 2013-05-18 
+==================
 
 * Add additional error types to handle Wiziq Error codes.
 
-=== 0.0.1 2011-05-18
+0.0.1 / 2011-05-18
+==================
 
 * Initial Version

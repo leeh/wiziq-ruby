@@ -31,7 +31,6 @@ module Wiziq
       end
     end
 
-#:attendee_list => array("atnd1","atnd2"), 
     # API Method broken
     def get_account_details
       body = { :psz_usr => @username, :psz_pwd => @password }
@@ -205,8 +204,7 @@ module Wiziq
             raise SessionLimitError.new(error_hash)
           elsif error_hash[:fault][:faultcode] == "ERR00019"
             #System.Web.Services.Protocols.SoapException: Cannot update events. Only scheduled events can be updated
-            #Ignore
-            #raise APIError.new(error_hash)
+            #Not an issue, ignore
           else
             raise APIError.new(error_hash)
           end
@@ -216,19 +214,23 @@ module Wiziq
   
   class APIError < StandardError
     def initialize(error)
-      super("#{error[:fault][:faultcode]}")
+      unless error.nil? or error[:fault].nil? 
+        super("#{error[:fault][:faultcode]}: #{error[:fault][:faultstring]}")
+      else
+        super(error)
+      end
     end
   end
   
   class SessionLimitError < APIError
     def initialize(error)
-      super("#{error[:fault][:faultcode]}")
+      super(error)
     end
   end
   
   class SchedulingPastError < APIError
     def initialize(error)
-      super("#{error[:fault][:faultcode]}")
+      super(error)
     end
   end
   
